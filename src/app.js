@@ -10,6 +10,8 @@ const createError = require('http-errors');
 const bodyParser = require('body-parser');
 const routes = require('./routes/v1');
 const helmet = require('helmet');
+const passport = require('passport');
+require('./config/passport')(passport);
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./middlewares/ApiError');
 
@@ -29,13 +31,17 @@ app.use(helmet());
 // listen everything in server 
 app.use(morgan('dev'));
 
+// use passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // v1 api routes
 app.use('/v1', routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-  });
+});
   
   // convert error to ApiError, if needed
   app.use(errorConverter);

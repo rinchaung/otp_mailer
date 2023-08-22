@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    googleId: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
@@ -19,6 +23,10 @@ const UserSchema = new Schema({
         required: true,
         trim: true
     },
+    image: {
+        type: String,
+        required: true,
+    },
     role:{
         type: Number,
         default: 0
@@ -28,8 +36,8 @@ const UserSchema = new Schema({
         default: Date.now
     },
     token: {
-        type: String
+        type: String   
     }
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('users', UserSchema);

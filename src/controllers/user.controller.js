@@ -71,7 +71,12 @@ const register = async (req, res) => {
     }
 }
 
+const getIndex = async (req, res) => {
+    res.json({ status: "SUCCESS", message: "Welcome to your Google Account." });
+};
+
 module.exports = {
     login,
     register,
+    getIndex,
 }
